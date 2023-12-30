@@ -1,0 +1,155 @@
+#In this project, you’re going to make your own table with some small set of “famous people”, then make more tables about things they do and join those to create nice human readable lists.
+
+For example, here are types of famous people and the questions your data could answer:
+
+Movie stars: What movies are they in? Are they married to each other?
+Singers: What songs did they write? Where are they from?
+Authors: What books did they write?
+Fictional characters: How are they related to other characters? What books do they show up in?
+
+
+#Project 3: Famous People
+
+CREATE TABLE movie_stars (id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    age INTEGER);
+
+INSERT INTO movie_stars (first_name, last_name, age)
+VALUES
+    ("Jim", "Carrey", 61),
+    ("Will", "Smith", 55),
+    ("Tom", "Cruise", 61),
+    ("Adam", "Sandler", 57),
+    ("Brad", "Pitt", 60),
+    ("Angelina", "Jolie", 48),
+    ("Tom", "Hanks", 67),
+    ("Jada", "Smith",52);
+    
+
+CREATE TABLE best_movie (id INTEGER PRIMARY KEY,
+    stars_id INTEGER,
+    movie TEXT,
+    rating INTEGER);
+
+INSERT INTO best_movie (stars_id, movie, rating)
+VALUES
+    (4, "Hustle", 9.3),
+    (1, "The Truman Show", 9.4),
+    (8, "The Matrix Resurrections", 6.3),
+    (7, "Toy Story 2", 10),
+    (3, "Mission Impossible - Fallout", 9.7),
+    (6, "Gia", 8.8),
+    (2, "Men in Black", 9.1),
+    (5, "12 Years a Slave", 9.5);
+    
+    
+CREATE TABLE spouses (id INTEGER PRIMARY KEY,
+    stars_id INTEGER,
+    spouse_name TEXT,
+    years_married INTEGER,
+    divorced TEXT);
+    
+INSERT INTO spouses (stars_id, spouse_name, years_married, divorced)
+VALUES
+    (5, "Angelina Jolie", 5, "Yes"),
+    (2, "Jada Smith", 26, "No"),
+    (6, "Brad Pitt", 5, "Yes"),
+    (3, "Katie Holmes", 6, "Yes"),
+    (7, "Rita Wilson", 35, "No"),
+    (8, "Will Smith", 26, "No"),
+    (1, "Lauren Holly", 1, "Yes"),
+    (4, "Jackie Sandler", 20, "No");
+
+
+SELECT * FROM movie_stars;
+
+SELECT * FROM best_movie;
+
+SELECT * FROM spouses;
+
+/* cross join */
+SELECT * FROM movie_stars, best_movie;
+
+/* implicit inner join */
+SELECT * FROM movie_stars, best_movie
+WHERE best_movie.stars_id=movie_stars.id;
+
+SELECT * FROM movie_stars, spouses
+WHERE spouses.stars_id=movie_stars.id;
+
+/* explicit inner join - JOIN */
+SELECT movie_stars.first_name, movie_stars.last_name, movie_stars.age, best_movie.movie, best_movie.rating
+FROM movie_stars
+JOIN best_movie
+ON movie_stars.id=best_movie.stars_id
+WHERE rating > 6.5;
+
+SELECT m.first_name, m.last_name, s.spouse_name, s.years_married
+FROM movie_stars m
+JOIN spouses s
+ON m.id=s.stars_id
+ORDER BY years_married desc;
+
+/* outer join */
+SELECT m.first_name, m.last_name, b.movie
+FROM movie_stars m
+LEFT OUTER JOIN best_movie b
+ON m.id=b.stars_id;
+
+/* self join */
+SELECT movie_stars.first_name, movie_stars.last_name, movie_stars.age
+FROM movie_stars
+JOIN movie_stars age
+ON movie_stars.id=age.id;
+
+
+
+CREATE TABLE project_pairs (id INTEGER PRIMARY KEY,
+  project1_id INTEGER,
+  project2_id INTEGER);
+
+INSERT INTO project_pairs (project1_id, project2_id)
+VALUES
+  (1,1),
+  (3,3),
+  (5,5),
+  (7,7);
+
+
+SELECT a.first_name, b.last_name FROM project_pairs
+JOIN movie_stars a
+On project_pairs.project1_id=a.id
+JOIN movie_stars b
+ON project_pairs.project2_id=b.id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
