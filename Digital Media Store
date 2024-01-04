@@ -128,3 +128,11 @@ WHERE BillingCountry = "Germany"
 AND Total > 5
 ORDER BY Total ASC;
 
+#16. Provide a query that shows the track ID, song, and artist for the artists: AC/DC, Queen, and Jimmy Page. Then provide a separate query for all other artists.
+SELECT t.TrackId, t.Name as 'Song', t.Composer as 'Artist'
+FROM chinook.tracks t
+WHERE Composer IN ("AC/DC", "Queen", "Jimmy Page");
+
+SELECT t.TrackId, t.Name as 'Song', t.Composer as 'Artist'
+FROM chinook.tracks t
+WHERE Composer NOT IN ("AC/DC", "Queen", "Jimmy Page");
