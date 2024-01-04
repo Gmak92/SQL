@@ -49,6 +49,12 @@ SELECT COUNT(*)
 FROM chinook.Invoices
 WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
 
+#OR
+
+SELECT COUNT(*)
+FROM chinook.invoices
+WHERE InvoiceDate like '%2009%';
+
 #9. What are the total sales for 2009?
 SELECT SUM(Total)
 FROM chinook.Invoices
