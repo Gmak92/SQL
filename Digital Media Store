@@ -60,6 +60,12 @@ SELECT SUM(Total)
 FROM chinook.Invoices
 WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
 
+#OR
+
+SELECT SUM(Total)
+FROM chinook.invoices
+WHERE InvoiceDate like '%2009%';
+
 #10. Write a query that includes the purchased track name with each invoice line ID.
 SELECT t.Name, i.InvoiceLineId
 FROM chinook.Invoice_items i
